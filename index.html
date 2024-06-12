@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicolás</title>
+    <link rel="stylesheet" href="Style.css">
+</head>
+
+<body>
+    <div class="video-container">
+        <video autoplay muted loop id="background-video" width="320" height="240">
+            <source src="Video.mp4" type="video/mp4">
+            Tu navegador no soporta la etiqueta de video.
+        </video>
+    </div>
+    <div class="buttons-container">
+        <div class="button" id="yes-button">Sí</div>
+        <div class="button" id="no-button">No</div>
+    </div>
+    <div id="warning-message"></div>
+
+    <!-- Añadir audio -->
+    <audio id="background-audio" loop>
+        <source src="intesamente.mp3" type="audio/mpeg">
+        Tu navegador no soporta la etiqueta de audio.
+    </audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        // Reproducir audio cuando el usuario haga clic en cualquier parte de la página
+        function playAudio() {
+            var audio = document.getElementById('background-audio');
+            audio.play().catch(function (error) {
+                console.log('Error al intentar reproducir el audio:', error);
+            });
+        }
+
+        // Intentar reproducir el audio automáticamente
+        document.addEventListener('DOMContentLoaded', function () {
+            playAudio();
+        });
+
+        document.getElementById('yes-button').addEventListener('click', function () {
+            playAudio();
+            Swal.fire({
+                html: '❤️ ¡Perfecto! Prometo no comerte toda la comida... bueno, bueno, un poquito. Nos encontramos el jueves a las 1:30 en el cine.❤️',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        });
+
+        document.getElementById('no-button').addEventListener('click', function () {
+            playAudio();
+            document.getElementById('warning-message').innerText = 'Te arrepentirás si dices que no. Elige la opción Sí.';
+            document.getElementById('warning-message').style.display = 'block';
+            document.getElementById('no-button').disabled = true;
+
+            setTimeout(function () {
+                document.getElementById('warning-message').style.display = 'none';
+            }, 3000);
+        });
+
+        document.getElementById('no-button').addEventListener('mouseover', function () {
+            playAudio();
+            Swal.fire({
+                html: '😄 Te arrepentirás si dices que no. Elige la opción Sí. Te amo 😳',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        });
+
+        // Reproducir audio con cualquier clic en el documento
+        document.addEventListener('click', playAudio, { once: true });
+    </script>
+</body>
+
+</html>
